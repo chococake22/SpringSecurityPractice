@@ -27,42 +27,28 @@ public class HomeController {
     @Autowired
     private AccountRepository accountRepository;
 
-    @Autowired
-    private BCryptPasswordEncoder bCryptPasswordEncoder;
-
+    // 메인 페이지
     @GetMapping("/")
     public String index(Model model, @AuthenticationPrincipal UserAccount userAccount) {
         model.addAttribute("userAccount", userAccount);
         return "index";
     }
 
+    // 로그인 양식
     @GetMapping("/loginForm")
     public String loginForm() {
         return "loginForm";
     }
 
-    @GetMapping("/signUpForm")
-    public String signUpForm() {
-        return "signUpForm";
-    }
 
-    @PostMapping("/signUpCheck")
-    public String signUpCheck(Account account) {
-        System.out.println("로그인 하기");
-        account.setRole("ROLE_USER");
-        String password = account.getPassword();
-        String bcPassword = bCryptPasswordEncoder.encode(password);
-        account.setPassword(bcPassword);
-        accountRepository.save(account);
+    // 로그인 처리
+    @PostMapping("/login")
+    public String loginCheck(@AuthenticationPrincipal Account account, Model model) {
+        model.addAttribute("account", account);
         return "redirect:/";
     }
 
-
-    @PostMapping("/loginCheck")
-    public void sample(@AuthenticationPrincipal Account account, Model model) {
-        model.addAttribute("account", account);
-    }
-
+    // 로그아웃
     @GetMapping("/logout")
     public String logout(HttpServletRequest request, HttpServletResponse response) throws Exception {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -72,5 +58,7 @@ public class HomeController {
 
         return "redirect:/";
     }
+
+
 
 }
