@@ -22,18 +22,34 @@ public class AccountService {
         Account newAccount = accountRepository.findByUsername(account.getUsername());
 
         // DB 데이터 변동
-        // account.setPassword(bCryptPasswordEncoder.encode(account.getPassword()));
-        account.setEmail(account.getEmail());
-        account.setPhone(account.getPhone());
 
+        newAccount.setEmail(account.getEmail());
+        newAccount.setPhone(account.getPhone());
+
+        System.out.println(newAccount.getPassword());
 
         // 인증 객체 변동
-        // userAccount.getAccount().setPassword(account.getPassword());
+
         userAccount.getAccount().setEmail(account.getEmail());
         userAccount.getAccount().setPhone(account.getPhone());
 
+        System.out.println(userAccount.getAccount().getPassword());
+
         accountRepository.save(newAccount);
 
+    }
+
+    @Transactional
+    public void updatePassword(Account account, @AuthenticationPrincipal UserAccount userAccount) {
+
+        Account newAccount = accountRepository.findByUsername(userAccount.getAccount().getUsername());
+
+        newAccount.setPassword(bCryptPasswordEncoder.encode(account.getPassword()));
+
+        userAccount.getAccount().setPassword(account.getPassword());
+
+
+        accountRepository.save(newAccount);
     }
 
 

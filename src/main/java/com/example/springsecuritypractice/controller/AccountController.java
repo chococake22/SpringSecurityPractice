@@ -59,7 +59,19 @@ public class AccountController {
         System.out.println(userAccount.getAccount().getPhone());
 
         accountService.update(preAccount, userAccount);
+        return "redirect:/";
+    }
 
+    @GetMapping("/updatePasswordForm")
+    public String updatePasswordForm(Model model, @AuthenticationPrincipal UserAccount userAccount) {
+        model.addAttribute("userAccount", userAccount);
+        return "updatePasswordForm";
+    }
+
+    @PostMapping("/passwordUpdateCheck")
+    public String updatePasswordCheck(Account preAccount, @AuthenticationPrincipal UserAccount userAccount)  {
+
+        accountService.updatePassword(preAccount, userAccount);
 
         return "redirect:/";
     }

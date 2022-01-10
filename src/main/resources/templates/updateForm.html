@@ -22,8 +22,10 @@
     <input type="text" id="phone" th:name="phone" th:value="${userAccount.getAccount().getPhone()}"> <br>
 
     <button>확인</button>
-
 </form>
+<a th:href="@{/updatePasswordForm}"><button>비밀번호 변경</button></a>
+
+
 
 
 </body>
