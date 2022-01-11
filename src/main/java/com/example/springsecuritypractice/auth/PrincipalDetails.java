@@ -1,17 +1,15 @@
-package com.example.springsecuritypractice.Auth;
+package com.example.springsecuritypractice.auth;
 
 // 시큐리티가 /login 주소 요청을 낚아 채간다.
 // 로그인 완료가 되면 Security ContextHolder에 session을 만들어 준다.
 // 그 세션은 Authentication 타입의 객체가 있는데 이것은 UserDetails 타입이어야 한다.
 
-import com.example.springsecuritypractice.Account.Account;
+import com.example.springsecuritypractice.account.Account;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 
 public class PrincipalDetails implements UserDetails {
 

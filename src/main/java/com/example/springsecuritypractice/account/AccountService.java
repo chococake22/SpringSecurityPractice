@@ -1,4 +1,4 @@
-package com.example.springsecuritypractice.Account;
+package com.example.springsecuritypractice.account;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,11 +48,6 @@ public class AccountService {
 
         userAccount.getAccount().setPassword(account.getPassword());
 
-
         accountRepository.save(newAccount);
     }
-
-
-
-
 }

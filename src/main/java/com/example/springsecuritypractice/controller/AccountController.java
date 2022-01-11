@@ -1,13 +1,12 @@
 package com.example.springsecuritypractice.controller;
 
 
-import com.example.springsecuritypractice.Account.Account;
-import com.example.springsecuritypractice.Account.AccountRepository;
-import com.example.springsecuritypractice.Account.AccountService;
-import com.example.springsecuritypractice.Account.UserAccount;
+import com.example.springsecuritypractice.account.Account;
+import com.example.springsecuritypractice.account.AccountRepository;
+import com.example.springsecuritypractice.account.AccountService;
+import com.example.springsecuritypractice.account.UserAccount;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

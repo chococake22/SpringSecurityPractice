@@ -1,22 +1,18 @@
 package com.example.springsecuritypractice.controller;
 
 
-import com.example.springsecuritypractice.Account.Account;
-import com.example.springsecuritypractice.Account.AccountRepository;
-import com.example.springsecuritypractice.Account.UserAccount;
-import com.example.springsecuritypractice.Auth.PrincipalDetails;
+import com.example.springsecuritypractice.account.Account;
+import com.example.springsecuritypractice.account.AccountRepository;
+import com.example.springsecuritypractice.account.UserAccount;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpRequest;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
