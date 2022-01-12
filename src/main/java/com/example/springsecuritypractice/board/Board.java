@@ -1,10 +1,14 @@
 package com.example.springsecuritypractice.board;
 
 
+
+
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @Entity
 @Getter
@@ -15,6 +19,8 @@ public class Board {
     @Column(name = "board_id")
     private Long id;
 
+    @NotNull    // 비어있으면 안된고
+    @Size(min = 2, max = 50, message = "제목은 2자 이상을 입력해야 합니다.")    // 2~50자리로 제목 글자 수 제한
     private String title;
     private String author;
     private String content;

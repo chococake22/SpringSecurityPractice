@@ -16,7 +16,6 @@ public class PrincipalDetails implements UserDetails {
     private Account account;
 
     public PrincipalDetails(Account account) {
-
         this.account = account;
     }
 

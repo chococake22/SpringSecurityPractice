@@ -5,11 +5,12 @@ import org.springframework.security.core.userdetails.User;
 
 import java.util.List;
 
-public class UserAccount extends User {
+// 인증된 객체의 속성들을 가져오기 위해 생성한 클래스
+public class UserAccount extends User { // UserDetails를 구현한 클래스
 
     private Account account;
 
-    public UserAccount(Account account) {
+    public UserAccount(Account account) {   // 생성자로 인해서 계정의 정보들을 가져올 수 있다.
         super(account.getUsername(), account.getPassword(), List.of(new SimpleGrantedAuthority("ROLE_USER")));
         this.account = account;
     }

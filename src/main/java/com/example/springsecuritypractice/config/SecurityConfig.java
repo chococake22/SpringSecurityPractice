@@ -22,6 +22,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+
+        http.csrf().disable();
+
         http.authorizeRequests()
                 // login 없이 접근 허용 하는 url
                 .antMatchers("/", "/signUpForm","/signUpCheck","/logout","/list").permitAll()

@@ -18,6 +18,7 @@ public class PrincipalDetailsService implements UserDetailsService {
     @Autowired
     private AccountRepository accountRepository;
 
+    // DB에서 해당 아이디를 가진 유저가 있는지 판단하고 있으면 가져오고 없으면 예외를 보냄
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Account account = accountRepository.findByUsername(username);
