@@ -1,13 +1,16 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
     <meta charset="UTF-8">
     <title>메인 페이지</title>
 </head>
 <body>
 
-<h1>메인 페이지</h1>
+<th:block th:replace="fragments/header :: header"></th:block>
+
+<h1>우리 홈페이지에 오신 것을 환영합니다.</h1>
 
 <a sec:authorize="isAuthenticated()" th:text="${userAccount.getAccount().getUsername() + '님 환영합니다'}"></a>
 
@@ -20,6 +23,8 @@
 <a sec:authorize="isAuthenticated()" th:href="@{/updateForm}">회원정보 수정</a> <br>
 
 <a th:href="@{/list}">게시판 목록</a>
+
+<th:block th:replace="fragments/footer :: footer"></th:block>
 
 </body>
 </html>

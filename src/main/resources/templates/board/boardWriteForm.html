@@ -17,7 +17,11 @@
         <label for="title" class="form-label">제목</label>
         <input type="text" class="form-control"
                th:classappend="${#fields.hasErrors('title')} ? 'is-invalid'" id="title" th:field="*{title}" name="title">
-        <div class="invalid-feedback" th:if="${#fields.hasErrors('title')}" th:errors="*{title}">
+<!--                에러가 발생하면 is-invalid가 된다-->
+        <input type="text" class="form-control"
+                th:classappend="${#fields.hasErrors('title')} ? 'is-invalid'" id="title" th:field="*{title}" name="title">
+
+        <div class="alert alert-danger" role="alert" th:if="${#fields.hasErrors('title')}" th:errors="*{title}">
             제목 에러 메시지
         </div>
     </div>
@@ -25,7 +29,7 @@
         <label for="content" class="form-label">내용</label>
         <textarea class="form-control"
                   th:classappend="${#fields.hasErrors('content')} ? 'is-invalid'" id="content" th:field="*{content}" name="content" ></textarea>
-        <div class="invalid-feedback" th:if="${#fields.hasErrors('content')}" th:errors="*{content}">
+        <div class="alert alert-danger" role="alert" th:if="${#fields.hasErrors('content')}" th:errors="*{content}">
             제목 에러 메시지
         </div>
     </div>
