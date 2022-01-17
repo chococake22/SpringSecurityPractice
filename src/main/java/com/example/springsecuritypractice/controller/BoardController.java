@@ -51,7 +51,7 @@ public class BoardController {
 
         Page<Board> boards = boardService.getBoardList(pageable, search);
         model.addAttribute("boards", boards);
-        return "/board/boardList";
+        return "board/boardList";
     }
 
     @GetMapping("/boardWrite")          // 새글 작성시 id가 필요 없기 때문에 required는 false
@@ -91,5 +91,4 @@ public class BoardController {
 
         return "/board/boardDetail";
     }
-
 }
