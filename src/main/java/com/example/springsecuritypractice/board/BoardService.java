@@ -1,5 +1,6 @@
 package com.example.springsecuritypractice.board;
 
+import com.example.springsecuritypractice.account.UserAccount;
 import com.example.springsecuritypractice.dto.BoardDto;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -62,8 +63,24 @@ public class BoardService {
                 .author(board.getAuthor())
                 .title(board.getTitle())
                 .content(board.getContent())
+                .createdDate(board.getCreatedDate())
+                .modifiedDate(board.getModifiedDate())
                 .build();
 
         return boardDto;
     }
+
+    @Transactional
+    public void update(Board board, UserAccount userAccount) {
+
+        Board newBoard = boardRepository.findById(board.getId()).get();
+
+        newBoard.setTitle(board.getTitle());
+        newBoard.setContent(board.getContent());
+
+    }
+
+
+
+
 }

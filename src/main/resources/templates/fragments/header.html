@@ -30,7 +30,8 @@
             </div>
 
             <div>
-                <a sec:authorize="isAuthenticated()" th:text="${userAccount.getAccount().getUsername() + '님 환영합니다 '}"></a>
+
+                <a class="mx-2 text-black text-decoration-none" sec:authorize="isAuthenticated()" th:text="${userAccount.getAccount().getUsername() + '님 환영합니다'}"></a>
 
                 <button class="btn btn-secondary my-2 my-sm-0" sec:authorize="!isAuthenticated()" th:onclick="|location.href='@{/loginForm}'|">로그인</button>
                 <button class="btn btn-secondary my-2 my-sm-0" sec:authorize="!isAuthenticated()" th:onclick="|location.href='@{/signUpForm}'|">회원가입</button>

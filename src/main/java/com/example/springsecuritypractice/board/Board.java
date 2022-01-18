@@ -7,6 +7,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -16,7 +17,7 @@ import javax.validation.constraints.Size;
 @Getter
 @Setter
 @NoArgsConstructor
-public class Board {
+public class Board extends BaseTimeEntity {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "board_id")
@@ -28,7 +29,7 @@ public class Board {
     private String author;
 
     @NotNull
-    @Size(min = 3, max = 40, message = "3자 이상 40자 이하를 입력해야 한다요.")
+    @Length(min = 2, message = "2자 이상의 내용을 입력해야 합니다.")
     private String content;
 
     @Builder

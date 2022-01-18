@@ -16,6 +16,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
 import java.security.Principal;
@@ -37,7 +38,7 @@ public class BoardController {
     @GetMapping("/list")
     public String list(Model model, Pageable pageable,
                        // 검색어가 없으면 리스트 전체를 가져온다(검색어가 있어도 되고 없어도 된다)
-                       @RequestParam(required = false, defaultValue = "") String search) {
+                       @RequestParam(required = false, defaultValue = "") String search, @AuthenticationPrincipal UserAccount userAccount) {
 
         // @RequestParam은 기본적으로 아무 것도 입력하지 않으므로 defaultValue가 ""이다.
         // 하지만 boardList의 검색에서 검색어를 입력하 경우 value값이 생성된다.
@@ -51,11 +52,12 @@ public class BoardController {
 
         Page<Board> boards = boardService.getBoardList(pageable, search);
         model.addAttribute("boards", boards);
+        model.addAttribute("userAccount", userAccount);
         return "board/boardList";
     }
 
     @GetMapping("/boardWrite")          // 새글 작성시 id가 필요 없기 때문에 required는 false
-    public String boardForm(Model model, @RequestParam(required = false) Long id) {
+    public String boardForm(Model model, @RequestParam(required = false) Long id, @AuthenticationPrincipal UserAccount userAccount) {
 
         if(id == null) {
             model.addAttribute("board", new Board());
@@ -63,11 +65,14 @@ public class BoardController {
             Board board = boardRepository.findById(id).orElse(null);    // 조회된 id가 없을 경우 null을 반환한다.
             model.addAttribute("board", board);
         }
-        return "/board/boardWriteForm";
+
+        model.addAttribute("userAccount", userAccount);
+
+        return "board/boardWriteForm";
     }
 
     @PostMapping("/boardWrite")
-    public String boardWriteCheck(@Valid Board board, BindingResult bindingResult, @AuthenticationPrincipal UserAccount userAccount) {
+    public String boardWriteCheck(@Valid Board board, BindingResult bindingResult, @AuthenticationPrincipal UserAccount userAccount, Model model) {
 
         boardValidator.validate(board, bindingResult);
 
@@ -77,18 +82,50 @@ public class BoardController {
 
         board.setAuthor(userAccount.getAccount().getUsername());
         boardRepository.save(board);
+
+        model.addAttribute("userAccount", userAccount);
+
         return "redirect:/list";
     }
 
     @GetMapping("/boardDetail/{id}")
-    public String boardDetail(@PathVariable Long id, Model model) {
+    public String boardDetail(@PathVariable Long id, Model model, @AuthenticationPrincipal UserAccount userAccount) {
 
         System.out.println("123123");
 
         BoardDto board = boardService.boardDetail(id);
 
-        model.addAttribute("board", board);
+        Object nlString = System.getProperty("line.separator").toString(); // content에서 줄바꿈 적용을 위해 사용되는 객체
 
-        return "/board/boardDetail";
+        model.addAttribute("board", board);
+        model.addAttribute("userAccount", userAccount);
+        model.addAttribute("nlString", nlString);
+
+        return "board/boardDetail";
+    }
+
+    @GetMapping("/boardUpdate/{id}")
+    public String updateForm(@PathVariable Long id, @AuthenticationPrincipal UserAccount userAccount, Model model) {
+
+        BoardDto board = boardService.boardDetail(id);
+
+        model.addAttribute("board", board);
+        model.addAttribute("userAccount", userAccount);
+
+        return "/board/boardUpdateForm";
+    }
+
+    @PostMapping("/boardUpdate/{id}")
+    public String updateCheck(@PathVariable Long id, @Valid Board board, @AuthenticationPrincipal UserAccount userAccount, Model model) {
+
+
+
+
+       boardService.update(board, userAccount);
+       model.addAttribute("userAccount", userAccount);
+
+
+        return "redirect:/";
+
     }
 }
