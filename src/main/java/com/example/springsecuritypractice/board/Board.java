@@ -32,11 +32,15 @@ public class Board extends BaseTimeEntity {
     @Length(min = 2, message = "2자 이상의 내용을 입력해야 합니다.")
     private String content;
 
+    // 조회 수
+    private int count;
+
     @Builder
-    public Board(Long id, String title, String author, String content) {
+    public Board(Long id, String title, String author, String content, int count) {
         this.id = id;
         this.title = title;
         this.author = author;
         this.content = content;
+        this.count = count;
     }
 }

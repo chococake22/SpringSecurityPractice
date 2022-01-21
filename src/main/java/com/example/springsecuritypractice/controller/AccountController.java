@@ -74,4 +74,12 @@ public class AccountController {
 
         return "redirect:/";
     }
+
+    @GetMapping("/myPage")
+    public String myPage(@AuthenticationPrincipal UserAccount userAccount, Model model) {
+        model.addAttribute("userAccount", userAccount);
+        return "myPage";
+    }
 }
+
+

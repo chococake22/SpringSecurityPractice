@@ -16,6 +16,7 @@ public class BoardDto {
     private String title;
     private String author;
     private String content;
+    private int count;
     private LocalDateTime createdDate;
     private LocalDateTime modifiedDate;
 
@@ -25,16 +26,19 @@ public class BoardDto {
                 .author(author)
                 .title(title)
                 .content(content)
+                .count(count)
                 .build();
         return build;
     }
 
     @Builder
-    public BoardDto(Long id, String title, String author, String content, LocalDateTime createdDate, LocalDateTime modifiedDate) {
+
+    public BoardDto(Long id, String title, String author, String content, int count, LocalDateTime createdDate, LocalDateTime modifiedDate) {
         this.id = id;
         this.title = title;
         this.author = author;
         this.content = content;
+        this.count = count;
         this.createdDate = createdDate;
         this.modifiedDate = modifiedDate;
     }

@@ -91,9 +91,8 @@ public class BoardController {
     @GetMapping("/boardDetail/{id}")
     public String boardDetail(@PathVariable Long id, Model model, @AuthenticationPrincipal UserAccount userAccount) {
 
-        System.out.println("123123");
-
         BoardDto board = boardService.boardDetail(id);
+        boardRepository.updateCount(id);
 
         Object nlString = System.getProperty("line.separator").toString(); // content에서 줄바꿈 적용을 위해 사용되는 객체
 
@@ -118,14 +117,16 @@ public class BoardController {
     @PostMapping("/boardUpdate/{id}")
     public String updateCheck(@PathVariable Long id, @Valid Board board, @AuthenticationPrincipal UserAccount userAccount, Model model) {
 
-
-
-
        boardService.update(board, userAccount);
        model.addAttribute("userAccount", userAccount);
 
-
         return "redirect:/";
 
+    }
+
+    @GetMapping("/boardDelete/{id}")
+    public String deleteCheck(@PathVariable Long id) {
+        boardRepository.deleteById(id);
+        return "redirect:/list";
     }
 }
