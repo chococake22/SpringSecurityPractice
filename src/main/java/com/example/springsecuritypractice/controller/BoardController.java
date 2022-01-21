@@ -4,6 +4,8 @@ import com.example.springsecuritypractice.account.UserAccount;
 import com.example.springsecuritypractice.board.Board;
 import com.example.springsecuritypractice.board.BoardRepository;
 import com.example.springsecuritypractice.board.BoardService;
+import com.example.springsecuritypractice.comment.Comment;
+import com.example.springsecuritypractice.comment.CommentRepository;
 import com.example.springsecuritypractice.dto.BoardDto;
 import com.example.springsecuritypractice.validator.BoardValidator;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +36,9 @@ public class BoardController {
 
     @Autowired
     private BoardValidator boardValidator;
+
+    @Autowired
+    private CommentRepository commentRepository;
 
     @GetMapping("/list")
     public String list(Model model, Pageable pageable,
@@ -93,12 +98,15 @@ public class BoardController {
 
         BoardDto board = boardService.boardDetail(id);
         boardRepository.updateCount(id);
-
         Object nlString = System.getProperty("line.separator").toString(); // content에서 줄바꿈 적용을 위해 사용되는 객체
+
+        List<Comment> comments = commentRepository.findAll();
+
 
         model.addAttribute("board", board);
         model.addAttribute("userAccount", userAccount);
         model.addAttribute("nlString", nlString);
+        model.addAttribute("comments", comments);
 
         return "board/boardDetail";
     }
