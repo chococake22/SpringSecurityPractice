@@ -100,7 +100,9 @@ public class BoardController {
         boardRepository.updateCount(id);
         Object nlString = System.getProperty("line.separator").toString(); // content에서 줄바꿈 적용을 위해 사용되는 객체
 
-        List<Comment> comments = commentRepository.findAll();
+        System.out.println("id : " + id);
+
+        List<Comment> comments = commentRepository.findCommentsByBoard_Id(id);
 
 
         model.addAttribute("board", board);
@@ -137,4 +139,10 @@ public class BoardController {
         boardRepository.deleteById(id);
         return "redirect:/list";
     }
+
+
+
+
+
+
 }

@@ -20,7 +20,6 @@ import javax.servlet.http.HttpServletResponse;
 @Controller
 public class HomeController {
 
-    @Autowired
     private AccountRepository accountRepository;
 
     // 메인 페이지

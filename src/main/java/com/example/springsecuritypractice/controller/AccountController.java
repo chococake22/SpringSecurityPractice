@@ -16,13 +16,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 @Controller
 public class AccountController {
 
-    @Autowired
     private AccountRepository accountRepository;
 
-    @Autowired
     private AccountService accountService;
 
-    @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     // 회원가입 양식

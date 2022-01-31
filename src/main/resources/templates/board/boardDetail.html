@@ -1,8 +1,15 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
+    <meta id="_csrf" name="_csrf" th:content="${_csrf.token}"/>
+    <meta id="_csrf_header" name="_csrf_header" th:content="${_csrf.headerName}"/>
+
     <title>글 보기</title>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
@@ -31,12 +38,57 @@
         </div>
         <div class="m-5">
 
-            <form th:action="@{'/commentMake/' + ${board.id} }" method="post">
-                <textarea class="form-control"
-                           id="comment_content" name="content" ></textarea>
+            <script th:inline="javascript">
 
-                <button type="submit">입력</button>
+                function commentCheck() {
+
+                    var data = {
+                        content : $("#comment_content").val(),
+                        name : $("#userid").val()
+                    };
+
+                    $.ajax({
+                        url:"/commentCheck",
+                        type:"POST",
+                        contentType: "application/json",
+                        data : data,
+                        beforeSend: function(xhr){
+                            xhr.setRequestHeader($("meta[name='_csrf_header']").attr("content"), $("meta[name='_csrf']").attr("content"));
+                        },
+                        success: function (fragment) {
+                            $("#resultDiv").append(data.content, data.name);
+                            console.log("성공");
+                            console.log(data.content);
+                            console.log(data.name)
+
+                        },
+                        error: function (e) {
+                            console.log("실패함");
+                        }
+                    }).done(function (fragment) {
+                        $("#resultDiv").append(fragment);
+                    })
+
+                }
+            </script>
+
+            <form method="post" id="reply" action="commentCheck">
+                <input type="hidden" name="board_id" th:value="${board.id}">
+                <textarea class="form-control"
+                          id="comment_content" name="content" placeholder="댓글을 입력해주세요" ></textarea>
+                <input type="hidden" id="token" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                <input type="hidden" id="userid" th:value="${#authentication.getName()}"/>
+                <button type="button" th:onclick="commentCheck()">입력</button>
             </form>
+
+            <div id="resultDiv">
+                <p th:if="${com}!=null" th:text="${com}"></p>
+            </div>
+
+            <!--            <form class="card-text" th:action="@{'/commentMake/' + ${board.id} }" method="post">-->
+            <!--            </form>-->
+
+
 
             <table>
                 <thead>
@@ -45,10 +97,21 @@
                         <th>내용</th>
                     </tr>
                 </thead>
+
+                <script>
+
+
+                </script>
+
                 <tbody>
                     <tr th:each="comment : ${comments}">
                         <td th:text="${comment.writer}"></td>
                         <td th:text="${comment.content}"></td>
+                        <td th:if="${#authentication.getName()} == ${comment.writer}" >
+                            <a th:href="@{'/commentDelete/' + ${comment.id}}">
+                                <button type="button" class="btn btn-primary" >삭제</button>
+                            </a>
+                        </td>
                     </tr>
                 </tbody>
             </table>
