@@ -1,10 +1,14 @@
 package com.example.springsecuritypractice.dto;
 
 import com.example.springsecuritypractice.board.Board;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.Objects;
 
+@Getter
+@NoArgsConstructor
 public class CommentDto {
 
     private Long id;

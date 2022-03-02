@@ -1,8 +1,7 @@
 package com.example.springsecuritypractice.board;
 
 
-
-
+import com.example.springsecuritypractice.comment.Comment;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,6 +11,7 @@ import org.hibernate.validator.constraints.Length;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.List;
 
 @Entity
 @Getter
@@ -24,12 +24,12 @@ public class Board extends BaseTimeEntity {
     private Long id;
 
     @NotNull    // 비어있으면 안된다
-    @Size(min = 2, max = 50, message = "제목은 2자 이상을 입력해야 합니다.")    // 2~50자리로 제목 글자 수 제한
+    @Size(min = 2, max = 100)    // 2~50자리로 제목 글자 수 제한
     private String title;
     private String author;
 
     @NotNull
-    @Length(min = 2, message = "2자 이상의 내용을 입력해야 합니다.")
+    @Length(min = 2, max = 3000)
     private String content;
 
     // 조회 수

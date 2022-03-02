@@ -11,9 +11,12 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Transactional
 public interface BoardRepository extends JpaRepository<Board, Long> {
+
+    Optional<Board> findById(Long id);
 
     List<Board> findByTitle(String title);
 

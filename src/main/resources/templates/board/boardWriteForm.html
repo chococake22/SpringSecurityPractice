@@ -23,25 +23,33 @@
                 <label for="title" class="form-label">제목</label>
                 <input type="text" class="form-control"
                        th:classappend="${#fields.hasErrors('title')} ? 'is-invalid'" id="title" th:field="*{title}" name="title">
-        <!--                에러가 발생하면 is-invalid가 된다-->
-
-                <div class="alert alert-danger" role="alert" th:if="${#fields.hasErrors('title')}" th:errors="*{title}">
-                    제목 에러 메시지
+        <!--                title에 조건이 안맞으면 에러가 발생해서 is-invalid가 된다-->
+                <div class="alert alert-danger" role="alert" th:if="${#fields.hasErrors('title')}">
+                    제목은 2자 이상을 입력해야 합니다.
                 </div>
+
+
             </div>
             <div class="form-group">
                 <label for="content" class="form-label">내용</label>
                 <textarea class="form-control"
                           th:classappend="${#fields.hasErrors('content')} ? 'is-invalid'" id="content" th:field="*{content}" name="content" ></textarea>
-                <div class="alert alert-danger" role="alert" th:if="${#fields.hasErrors('content')}" th:errors="*{content}">
-                    제목 에러 메시지
+
+                <div class="alert alert-danger" role="alert" th:if="${#fields.hasErrors('content')}">
+                    내용은 2자 이상을 입력해야 합니다.
+                </div>
+
+            </div>
+
+            <div class="mt-5">
+                <div class="text-right">
+                    <button type="submit" class="btn btn-primary">확인</button>
+                    <a th:href="@{/list}"><button type="button" class="btn btn-primary">취소</button></a>
                 </div>
             </div>
-            <div class="text-right">
-                <button type="submit" class="btn btn-primary">확인</button>
-            </div>
+
         </form>
-        <a th:href="@{/list}"><button type="button" class="btn btn-primary">취소</button></a>
+
     </div>
 </div>
 

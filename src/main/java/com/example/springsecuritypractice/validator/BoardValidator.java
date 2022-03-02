@@ -29,7 +29,7 @@ public class BoardValidator implements Validator {
         }
 
         if(StringUtils.isEmpty(b.getTitle())) {
-            errors.rejectValue("title", "notitle", "제목 없다네");
+            errors.rejectValue("title", "notitle", "제목에 내용이 없습니다.");
         }
 
     }
