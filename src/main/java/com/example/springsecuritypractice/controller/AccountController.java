@@ -2,8 +2,8 @@ package com.example.springsecuritypractice.controller;
 
 
 import com.example.springsecuritypractice.account.Account;
-import com.example.springsecuritypractice.account.AccountRepository;
-import com.example.springsecuritypractice.account.AccountService;
+import com.example.springsecuritypractice.repository.AccountRepository;
+import com.example.springsecuritypractice.service.AccountService;
 import com.example.springsecuritypractice.account.UserAccount;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -16,10 +16,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 @Controller
 public class AccountController {
 
+    @Autowired
     private AccountRepository accountRepository;
 
+    @Autowired
     private AccountService accountService;
 
+    @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     // 회원가입 양식

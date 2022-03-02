@@ -2,9 +2,8 @@ package com.example.springsecuritypractice.controller;
 
 
 import com.example.springsecuritypractice.account.Account;
-import com.example.springsecuritypractice.account.AccountRepository;
+import com.example.springsecuritypractice.repository.AccountRepository;
 import com.example.springsecuritypractice.account.UserAccount;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;

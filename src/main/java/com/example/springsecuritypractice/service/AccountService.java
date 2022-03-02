@@ -1,6 +1,9 @@
-package com.example.springsecuritypractice.account;
+package com.example.springsecuritypractice.service;
 
 
+import com.example.springsecuritypractice.account.Account;
+import com.example.springsecuritypractice.account.UserAccount;
+import com.example.springsecuritypractice.repository.AccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;

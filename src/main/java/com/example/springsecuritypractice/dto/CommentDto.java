@@ -1,4 +1,4 @@
-package com.example.springsecuritypractice.comment;
+package com.example.springsecuritypractice.dto;
 
 import com.example.springsecuritypractice.board.Board;
 

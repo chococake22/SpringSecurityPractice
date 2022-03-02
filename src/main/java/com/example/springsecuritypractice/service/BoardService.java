@@ -1,7 +1,9 @@
-package com.example.springsecuritypractice.board;
+package com.example.springsecuritypractice.service;
 
 import com.example.springsecuritypractice.account.UserAccount;
+import com.example.springsecuritypractice.board.Board;
 import com.example.springsecuritypractice.dto.BoardDto;
+import com.example.springsecuritypractice.repository.BoardRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -10,11 +12,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.Optional;
-
 @Service
 public class BoardService {
 
+    // 생성자 주입
     private BoardRepository boardRepository;
 
     public BoardService(BoardRepository boardRepository) {
@@ -23,7 +24,7 @@ public class BoardService {
 
     @Transactional
     public Page<Board> getBoardList(Pageable pageable, @RequestParam(required = false, defaultValue = "") String search) {
-
+                                                        // 매개변수가 필수는 아님, 기본값은 ""
         int page;
 
         if(pageable.getPageNumber() == 0) {
@@ -79,8 +80,4 @@ public class BoardService {
         newBoard.setContent(board.getContent());
 
     }
-
-
-
-
 }

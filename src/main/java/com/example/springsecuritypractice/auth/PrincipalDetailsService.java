@@ -1,7 +1,7 @@
 package com.example.springsecuritypractice.auth;
 
 import com.example.springsecuritypractice.account.Account;
-import com.example.springsecuritypractice.account.AccountRepository;
+import com.example.springsecuritypractice.repository.AccountRepository;
 import com.example.springsecuritypractice.account.UserAccount;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;

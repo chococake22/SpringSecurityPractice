@@ -6,7 +6,7 @@ import org.springframework.security.core.userdetails.User;
 import java.util.List;
 
 // 인증된 객체의 속성들을 가져오기 위해 생성한 클래스
-public class UserAccount extends User { // UserDetails를 구현한 클래스
+public class UserAccount extends User { // User는 UserDetails를 구현한 클래스
 
     private Account account;
 

@@ -1,29 +1,18 @@
 package com.example.springsecuritypractice.controller;
 
-import com.example.springsecuritypractice.account.UserAccount;
-import com.example.springsecuritypractice.board.Board;
-import com.example.springsecuritypractice.board.BoardRepository;
-import com.example.springsecuritypractice.board.BoardService;
+import com.example.springsecuritypractice.repository.BoardRepository;
+import com.example.springsecuritypractice.service.BoardService;
 import com.example.springsecuritypractice.comment.Comment;
-import com.example.springsecuritypractice.comment.CommentRepository;
-import com.example.springsecuritypractice.dto.BoardDto;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.example.springsecuritypractice.repository.CommentRepository;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.validation.Valid;
-import java.security.Principal;
 import java.util.List;
-import java.util.Optional;
-
-import static org.springframework.data.jpa.domain.AbstractPersistable_.id;
 
 @Controller
 public class CommentController {

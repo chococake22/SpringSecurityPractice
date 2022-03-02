@@ -23,7 +23,7 @@ public class Board extends BaseTimeEntity {
     @Column(name = "board_id")
     private Long id;
 
-    @NotNull    // 비어있으면 안된고
+    @NotNull    // 비어있으면 안된다
     @Size(min = 2, max = 50, message = "제목은 2자 이상을 입력해야 합니다.")    // 2~50자리로 제목 글자 수 제한
     private String title;
     private String author;

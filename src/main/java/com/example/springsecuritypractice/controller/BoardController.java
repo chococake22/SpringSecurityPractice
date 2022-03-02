@@ -2,28 +2,23 @@ package com.example.springsecuritypractice.controller;
 
 import com.example.springsecuritypractice.account.UserAccount;
 import com.example.springsecuritypractice.board.Board;
-import com.example.springsecuritypractice.board.BoardRepository;
-import com.example.springsecuritypractice.board.BoardService;
+import com.example.springsecuritypractice.repository.BoardRepository;
+import com.example.springsecuritypractice.service.BoardService;
 import com.example.springsecuritypractice.comment.Comment;
-import com.example.springsecuritypractice.comment.CommentRepository;
+import com.example.springsecuritypractice.repository.CommentRepository;
 import com.example.springsecuritypractice.dto.BoardDto;
 import com.example.springsecuritypractice.validator.BoardValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.web.PageableDefault;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
-import java.security.Principal;
 import java.util.List;
-import java.util.Optional;
 
 @Controller
 public class BoardController {
@@ -82,7 +77,7 @@ public class BoardController {
         boardValidator.validate(board, bindingResult);
 
         if(bindingResult.hasErrors()) {
-            return "/board/boardWriteForm";
+            return "board/boardWriteForm";
         }
 
         board.setAuthor(userAccount.getAccount().getUsername());
@@ -94,7 +89,7 @@ public class BoardController {
     }
 
     @GetMapping("/boardDetail/{id}")
-    public String boardDetail(@PathVariable Long id, Model model, @AuthenticationPrincipal UserAccount userAccount) {
+    public String boardDetail(@PathVariable Long id,  Model model, @AuthenticationPrincipal UserAccount userAccount) {
 
         BoardDto board = boardService.boardDetail(id);
         boardRepository.updateCount(id);

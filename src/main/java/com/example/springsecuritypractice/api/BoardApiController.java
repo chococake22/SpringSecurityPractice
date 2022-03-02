@@ -3,8 +3,9 @@ package com.example.springsecuritypractice.api;
 import java.util.List;
 
 import com.example.springsecuritypractice.board.Board;
-import com.example.springsecuritypractice.board.BoardRepository;
+import com.example.springsecuritypractice.repository.BoardRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.web.bind.annotation.*;
 import org.thymeleaf.util.StringUtils;
 
@@ -38,7 +39,7 @@ class BoardApiController {
 
     // 하나의 게시물 가져오기
     @GetMapping("/boards/{id}")
-    Board one(@PathVariable Long id) {
+    Board one(@PathVariable @Param("id") Long id) {
 
         return repository.findById(id)
                 .orElse(null);

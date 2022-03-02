@@ -2,16 +2,17 @@ package com.example.springsecuritypractice.account;
 
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-
 @Entity
 @Getter
 @Setter
+@NoArgsConstructor
 public class Account {
 
     @Id
@@ -25,9 +26,6 @@ public class Account {
     private String name;
     private String phone;
     private String role;
-
-    public Account() {
-    }
 
     @Builder
     public Account(Long id, String username, String password, String email, String name, String phone, String role) {
