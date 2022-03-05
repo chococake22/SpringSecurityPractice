@@ -50,31 +50,28 @@ public class AccountController {
         return "updateForm";
     }
 
+    // 회원정보 수정
     @PostMapping("/updateCheck")
     public String updateCheck(Account preAccount, @AuthenticationPrincipal UserAccount userAccount) {
-
-
-        System.out.println(userAccount.getAccount().getName());
-        System.out.println(userAccount.getAccount().getPhone());
-
         accountService.update(preAccount, userAccount);
         return "redirect:/";
     }
 
+    // 비밀번호 변경
     @GetMapping("/updatePasswordForm")
     public String updatePasswordForm(Model model, @AuthenticationPrincipal UserAccount userAccount) {
         model.addAttribute("userAccount", userAccount);
         return "updatePasswordForm";
     }
 
+    // 비밀번호 변경 확인
     @PostMapping("/passwordUpdateCheck")
     public String updatePasswordCheck(Account preAccount, @AuthenticationPrincipal UserAccount userAccount)  {
-
         accountService.updatePassword(preAccount, userAccount);
-
         return "redirect:/";
     }
 
+    // 마이페이지 이동
     @GetMapping("/myPage")
     public String myPage(@AuthenticationPrincipal UserAccount userAccount, Model model) {
         model.addAttribute("userAccount", userAccount);

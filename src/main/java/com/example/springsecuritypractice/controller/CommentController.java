@@ -75,6 +75,8 @@ public class CommentController {
     @GetMapping("/commentDelete")
     public String deleteCheck(Comment comment, Board board) {
 
+        System.out.println("댓글 번호: " + comment.getId());
+
         commentRepository.deleteById(comment.getId());
         return "/board/boardDetail";
     }

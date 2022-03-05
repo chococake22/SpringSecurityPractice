@@ -56,7 +56,8 @@ public class BoardController {
         return "board/boardList";
     }
 
-    @GetMapping("/boardWrite")          // 새글 작성시 id가 필요 없기 때문에 required는 false
+    // 게시물 작성
+    @GetMapping("/boardWrite")          // 새글 작성시 id가 필요 없기 때문에 required는 false(파라미터가 꼭 필요하지는 않다)
     public String boardForm(Model model, @RequestParam(required = false) Long id, @AuthenticationPrincipal UserAccount userAccount) {
 
         if(id == null) {
@@ -71,6 +72,7 @@ public class BoardController {
         return "board/boardWriteForm";
     }
 
+    // 게시물 작성 확인
     @PostMapping("/boardWrite")
     public String boardWriteCheck(@Valid Board board, BindingResult bindingResult, @AuthenticationPrincipal UserAccount userAccount, Model model) {
 
@@ -88,6 +90,7 @@ public class BoardController {
         return "redirect:/list";
     }
 
+    // 게시물 상세보기
     @GetMapping("/boardDetail/{id}")
     public String boardDetail(@PathVariable Long id,  Model model, @AuthenticationPrincipal UserAccount userAccount) {
 
@@ -108,6 +111,7 @@ public class BoardController {
         return "board/boardDetail";
     }
 
+    // 게시물 수정
     @GetMapping("/boardUpdate/{id}")
     public String updateForm(@PathVariable Long id, @AuthenticationPrincipal UserAccount userAccount, Model model) {
 
@@ -119,6 +123,7 @@ public class BoardController {
         return "/board/boardUpdateForm";
     }
 
+    // 게시물 수정 확인
     @PostMapping("/boardUpdate/{id}")
     public String updateCheck(@PathVariable Long id, @Valid Board board, @AuthenticationPrincipal UserAccount userAccount, Model model) {
 
@@ -129,6 +134,7 @@ public class BoardController {
 
     }
 
+    // 게시물 삭제
     @GetMapping("/boardDelete/{id}")
     public String deleteCheck(@PathVariable Long id) {
         boardRepository.deleteById(id);
